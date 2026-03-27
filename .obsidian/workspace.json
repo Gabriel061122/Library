@@ -185,17 +185,17 @@
   },
   "active": "3f2e791b6b98689c",
   "lastOpenFiles": [
-    "LICENSE",
-    "Library/LICENSE",
-    "Library",
-    "target/surefire/surefirebooter-20260327185213569_3.jar",
-    "target/surefire/surefire_0-20260327185213569_2tmp",
-    "target/surefire/surefire-20260327185213569_1tmp",
+    "src/main/java/com/libreria/model/Buy.java",
+    "src/main/java/com/libreria/model/Borrowing.java",
+    "src/main/java/com/libreria/model/book/BookList.java",
+    "src/main/java/com/libreria/model/book/BookHistory.java",
+    "src/main/java/com/libreria/model/book/Book.java",
+    "src/main/java/com/libreria/model/book",
+    "target/surefire/surefirebooter-20260327191959076_3.jar",
+    "target/surefire/surefire_0-20260327191959076_2tmp",
+    "target/surefire/surefire-20260327191959076_1tmp",
     "target/surefire",
     "target/test-classes/com/libreria/LibreriaApplicationTests.class",
-    "target/classes/com/libreria/model/Libro.class",
-    "target/classes/com/libreria/model",
-    "target/classes/com/libreria/LibreriaApplication.class",
     "developmentDiary/Domain.md"
   ]
 }

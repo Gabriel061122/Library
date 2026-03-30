@@ -27,6 +27,10 @@ public class User {
     private String state;
     private String country;
     private String postalCode;
+    @OneToOne
+    private BuyStory buyStory;
+    @OneToOne
+    private BorrowingHistory borrowingHistory;
 
     public User(
             String name,

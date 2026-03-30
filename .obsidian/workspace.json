@@ -185,6 +185,7 @@
   },
   "active": "3f2e791b6b98689c",
   "lastOpenFiles": [
+    "src/main/java/com/libreria/model/book/BorrowingHistory.java",
     "src/main/java/com/libreria/model/Buy.java",
     "src/main/java/com/libreria/model/Borrowing.java",
     "src/main/java/com/libreria/model/book/BookList.java",
@@ -195,7 +196,6 @@
     "target/surefire/surefire_0-20260327191959076_2tmp",
     "target/surefire/surefire-20260327191959076_1tmp",
     "target/surefire",
-    "target/test-classes/com/libreria/LibreriaApplicationTests.class",
     "developmentDiary/Domain.md"
   ]
 }

@@ -1,5 +1,22 @@
 package com.libreria.model.exchange;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import java.util.Objects;
+import java.util.Date;
+import com.libreria.model.user.User;
+import com.libreria.model.book.Book;
+
 @Entity
 @Getter
 @Setter

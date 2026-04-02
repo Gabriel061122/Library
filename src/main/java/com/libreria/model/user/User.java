@@ -5,9 +5,20 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.util.Objects;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.libreria.model.exchange.Buy;
+import com.libreria.model.exchange.Borrowing;
+import com.libreria.model.user.UserType;
 
 @Entity
 @Getter
@@ -20,17 +31,27 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String role;
     private String phone;
     private String address;
     private String city;
     private String state;
     private String country;
     private String postalCode;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Buy> buys;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private List<Borrowing> borrowings;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name= "user_user_types",
+               joinColumns = @JoinColumn(name = "user_id"),
+               inverseJoinColumns = @JoinColumn(name = "user_type_id")
+               )
+    private List<UserType> userTypes;
 
     public User(
             String name,
@@ -47,7 +68,6 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.role = role;
         this.phone = phone;
         this.address = address;
         this.city = city;
@@ -62,8 +82,6 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
                 ", phone='" + phone + '\'' +
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
@@ -75,11 +93,10 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        boolean isEqual = false;
-        if (o instanceof User) {
-            isEqual = this.id.equals(((User) o).id);
-        }
-        return isEqual;
+        if (this == o)return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id); 
     }
 
     @Override
@@ -89,12 +106,29 @@ public class User {
 
     public void addBuy(Buy buy) {
         buys.add(buy);
+        buy.setUser(this);
     }
 
     public void addBorrowing(Borrowing borrowing) {
         borrowings.add(borrowing);
+        borrowing.setUser(this);
     }
 
     public void removeBuy(Buy buy) {
         buys.remove(buy);
+    }
+
+    public void removeBorrowing(Borrowing borrowing) {
+        borrowings.remove(borrowing);
+    }
+
+    public void addUserType(UserType userType) {
+        userTypes.add(userType);
+        userType.addUser(this);
+    }
+
+    public void removeUserType(UserType userType) {
+        userTypes.remove(userType);
+        userType.removeUser(this);
+    }
 }

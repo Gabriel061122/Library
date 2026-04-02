@@ -1,5 +1,22 @@
 package com.libreria.model.exchange;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.FetchType;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import java.util.Objects;
+import java.util.Date;
+import com.libreria.model.user.User;
+import com.libreria.model.book.Book;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.JoinColumn;
+
 
 @Entity
 @Getter
@@ -11,10 +28,14 @@ public class Borrowing {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(mappedBy = "borrowing", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
-    @ManyToOne(mappedBy = "borrowing", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id")
+    @JsonIgnore
     private Book book;
 
 

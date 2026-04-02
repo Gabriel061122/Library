@@ -1,1 +1,1 @@
-package com.libreria.modelo.book;
+package com.libreria.model.book;

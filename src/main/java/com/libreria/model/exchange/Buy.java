@@ -1,4 +1,4 @@
-package com.libreria.model;
+package com.libreria.model.exchange;
 
 @Entity
 @Getter

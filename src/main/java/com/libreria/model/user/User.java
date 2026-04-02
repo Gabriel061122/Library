@@ -1,4 +1,4 @@
-package com.libreria.model;
+package com.libreria.model.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,10 +27,10 @@ public class User {
     private String state;
     private String country;
     private String postalCode;
-    @OneToOne
-    private BuyStory buyStory;
-    @OneToOne
-    private BorrowingHistory borrowingHistory;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Buy> buys;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Borrowing> borrowings;
 
     public User(
             String name,
@@ -86,4 +86,15 @@ public class User {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    public void addBuy(Buy buy) {
+        buys.add(buy);
+    }
+
+    public void addBorrowing(Borrowing borrowing) {
+        borrowings.add(borrowing);
+    }
+
+    public void removeBuy(Buy buy) {
+        buys.remove(buy);
 }

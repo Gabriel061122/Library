@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.libreria.model.exchange.Buy;
 import com.libreria.model.keys.UserKey;
 import com.libreria.model.exchange.Borrowing;
-import com.libreria.model.user.UserType;
+
 
 @Entity
 @Getter

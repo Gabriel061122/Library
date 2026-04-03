@@ -1,13 +1,14 @@
 package com.libreria.model.keys;
 
 import java.io.Serializable;
-import java.util.Base64;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class UserKey implements Serializable{
+@NoArgsConstructor
+public class UserKey implements Serializable {
     private Long id;
     private String email;
 

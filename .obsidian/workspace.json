@@ -200,18 +200,19 @@
   },
   "active": "c0e12142e64816e3",
   "lastOpenFiles": [
+    "target/classes/com/libreria/service/UsersService.class",
+    "target/classes/com/libreria/api/UsersApi.class",
+    "src/main/java/com/libreria/service/UsersService.java",
+    "src/main/java/com/libreria/api/UsersApi.java",
+    "target/classes/com/libreria/api/Api.class",
+    "target/classes/com/libreria/service/LibraryService.class",
+    "src/main/java/com/libreria/service/LibraryService.java",
+    "src/main/java/com/libreria/api/Api.java",
+    "target/classes/com/libreria/service/LibraryServive.class",
+    "src/main/java/com/libreria/service/LibraryServive.java",
+    "target/classes/com/libreria/model/repositories/UserRepository.class",
     "developmentDiary/Domain.md",
     "developmentDiary/Specs.md",
-    "HELP.md",
-    "src/main/java/com/libreria/model/book/BorrowingHistory.java",
-    "src/main/java/com/libreria/model/Buy.java",
-    "src/main/java/com/libreria/model/Borrowing.java",
-    "src/main/java/com/libreria/model/book/BookList.java",
-    "src/main/java/com/libreria/model/book/BookHistory.java",
-    "src/main/java/com/libreria/model/book/Book.java",
-    "src/main/java/com/libreria/model/book",
-    "target/surefire/surefirebooter-20260327191959076_3.jar",
-    "target/surefire/surefire_0-20260327191959076_2tmp",
-    "target/surefire/surefire-20260327191959076_1tmp"
+    "HELP.md"
   ]
 }

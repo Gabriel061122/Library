@@ -36,7 +36,7 @@ public class UserType {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof UserType)) return false;
+        if (!(o instanceof UserType)) return false; 
         UserType userType = (UserType) o;
         return Objects.equals(id, userType.id);
     }
@@ -53,4 +53,6 @@ public class UserType {
     public void removeUser(User user) {
         users.remove(user);
     }
+
+    
 }

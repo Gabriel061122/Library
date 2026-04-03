@@ -9,14 +9,10 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.libreria.model.exchange.Buy;
+import com.libreria.model.keys.UserKey;
 import com.libreria.model.exchange.Borrowing;
 import com.libreria.model.user.UserType;
 
@@ -24,12 +20,15 @@ import com.libreria.model.user.UserType;
 @Getter
 @Setter
 @NoArgsConstructor
+@IdClass(UserKey.class)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
-    private String name;
+    @Id
     private String email;
+    private String name;
     private String password;
     private String phone;
     private String address;

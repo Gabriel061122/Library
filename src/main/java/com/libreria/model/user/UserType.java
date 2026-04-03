@@ -47,7 +47,6 @@ public class UserType {
     }
     public void addUser(User user) {
         users.add(user);
-        user.addUserType(this);
     }
 
     public void removeUser(User user) {

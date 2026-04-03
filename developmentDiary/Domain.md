@@ -4,5 +4,4 @@ Users
 Buys
 Borrowings
 Discounts
-BorrowingStory
-BuyStory
+

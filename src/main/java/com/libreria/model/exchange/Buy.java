@@ -1,14 +1,6 @@
 package com.libreria.model.exchange;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
+import jakarta.persistence.Entity; 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -31,7 +23,8 @@ public class Buy {
     private int discount;
 
 
-    public Buy(User user, Book book, Date buyDate, int quantity, int price, int discount) {
+    public Buy(Long id, User user, Book book, Date buyDate, int quantity, int price, int discount) {
+        this.id = id;
         this.user = user;
         this.book = book;
         this.buyDate = buyDate;

@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.util.Objects;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -73,6 +74,10 @@ public class User {
         this.state = state;
         this.country = country;
         this.postalCode = postalCode;
+
+        this.buys = new ArrayList<>();
+        this.borrowings = new ArrayList<>();
+        this.userTypes = new ArrayList<>();
     }
 
     @Override
@@ -95,7 +100,7 @@ public class User {
         if (this == o)return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id); 
+        return Objects.equals(id, user.id) && Objects.equals(email, user.email); 
     }
 
     @Override
@@ -115,10 +120,12 @@ public class User {
 
     public void removeBuy(Buy buy) {
         buys.remove(buy);
+        buy.setUser(null);
     }
 
     public void removeBorrowing(Borrowing borrowing) {
         borrowings.remove(borrowing);
+        borrowing.setUser(null);
     }
 
     public void addUserType(UserType userType) {

@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.libreria.model.user.User;
 import java.util.Objects;
 
 

@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "d5dd4647a91d7c88",
+        "id": "060e987a5ef78624",
         "type": "tabs",
         "children": [
           {
-            "id": "3f2e791b6b98689c",
+            "id": "9f9a19504284491b",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "developmentDiary/Domain.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Domain"
+              "title": "Nueva pestaña"
             }
           }
         ]
@@ -78,7 +74,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200
   },
   "right": {
     "id": "fc3b4f3b373a0937",
@@ -183,19 +179,20 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "3f2e791b6b98689c",
+  "active": "9f9a19504284491b",
   "lastOpenFiles": [
-    "src/main/java/com/libreria/model/book/BorrowingHistory.java",
-    "src/main/java/com/libreria/model/Buy.java",
-    "src/main/java/com/libreria/model/Borrowing.java",
-    "src/main/java/com/libreria/model/book/BookList.java",
-    "src/main/java/com/libreria/model/book/BookHistory.java",
-    "src/main/java/com/libreria/model/book/Book.java",
-    "src/main/java/com/libreria/model/book",
-    "target/surefire/surefirebooter-20260327191959076_3.jar",
-    "target/surefire/surefire_0-20260327191959076_2tmp",
-    "target/surefire/surefire-20260327191959076_1tmp",
-    "target/surefire",
-    "developmentDiary/Domain.md"
+    "developmentDiary/Domain.md",
+    "developmentDiary/Specs.md",
+    "target/classes/com/libreria/service/UsersService.class",
+    "target/classes/com/libreria/api/UsersApi.class",
+    "src/main/java/com/libreria/service/UsersService.java",
+    "src/main/java/com/libreria/api/UsersApi.java",
+    "target/classes/com/libreria/api/Api.class",
+    "target/classes/com/libreria/service/LibraryService.class",
+    "src/main/java/com/libreria/service/LibraryService.java",
+    "src/main/java/com/libreria/api/Api.java",
+    "target/classes/com/libreria/service/LibraryServive.class",
+    "src/main/java/com/libreria/service/LibraryServive.java",
+    "HELP.md"
   ]
 }

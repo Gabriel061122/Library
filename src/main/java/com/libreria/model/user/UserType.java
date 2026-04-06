@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.libreria.model.user.User;
 import java.util.Objects;
 
 
@@ -47,7 +46,6 @@ public class UserType {
     }
     public void addUser(User user) {
         users.add(user);
-        user.addUserType(this);
     }
 
     public void removeUser(User user) {

@@ -13,6 +13,7 @@ import lombok.Setter;
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.libreria.model.exchange.Buy;
+import com.libreria.model.exchange.Order;
 import com.libreria.model.keys.UserKey;
 import com.libreria.model.exchange.Borrowing;
 
@@ -40,7 +41,7 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Buy> buys;
+    private List<Order> orders;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -75,7 +76,7 @@ public class User {
         this.country = country;
         this.postalCode = postalCode;
 
-        this.buys = new ArrayList<>();
+        this.orders = new ArrayList<>();
         this.borrowings = new ArrayList<>();
         this.userTypes = new ArrayList<>();
     }
@@ -108,9 +109,9 @@ public class User {
         return Objects.hash(id);
     }
 
-    public void addBuy(Buy buy) {
-        buys.add(buy);
-        buy.setUser(this);
+    public void addOrder(Order order) {
+        orders.add(order);
+        order.setUser(this);
     }
 
     public void addBorrowing(Borrowing borrowing) {
@@ -118,9 +119,9 @@ public class User {
         borrowing.setUser(this);
     }
 
-    public void removeBuy(Buy buy) {
-        buys.remove(buy);
-        buy.setUser(null);
+    public void removeOrder(Order order) {
+        orders.remove(order);
+        order.setUser(null);
     }
 
     public void removeBorrowing(Borrowing borrowing) {

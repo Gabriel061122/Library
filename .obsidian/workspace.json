@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "060e987a5ef78624",
+        "id": "8f0c794297d1e9ba",
         "type": "tabs",
         "children": [
           {
-            "id": "9f9a19504284491b",
+            "id": "7af6ed4e3edd7cf3",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -179,7 +179,7 @@
       "bases:Crear nueva base": false
     }
   },
-  "active": "9f9a19504284491b",
+  "active": "7af6ed4e3edd7cf3",
   "lastOpenFiles": [
     "developmentDiary/Domain.md",
     "developmentDiary/Specs.md",

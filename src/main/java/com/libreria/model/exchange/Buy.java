@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import java.util.Objects;
-import java.util.Date;
 import com.libreria.model.user.User;
 import com.libreria.model.book.Book;
 
@@ -17,17 +16,15 @@ public class Buy {
     private Long id;
     private User user;
     private Book book;
-    private Date buyDate;
     private int quantity;
     private int price;
     private int discount;
 
 
-    public Buy(Long id, User user, Book book, Date buyDate, int quantity, int price, int discount) {
+    public Buy(Long id, User user, Book book, int quantity, int price, int discount) {
         this.id = id;
         this.user = user;
         this.book = book;
-        this.buyDate = buyDate;
         this.quantity = quantity;
         this.price = price;
         this.discount = discount;
@@ -57,5 +54,15 @@ public class Buy {
 
     public int getTotalPriceWithoutDiscount() {
         return price * quantity;
+    }
+
+    public Buy updateBuy(Buy newBuy) {
+        this.id = newBuy.id;
+        this.user = newBuy.user;
+        this.book = newBuy.book;
+        this.quantity = newBuy.quantity;
+        this.price = newBuy.price;
+        this.discount = newBuy.discount;
+        return this;
     }
 }

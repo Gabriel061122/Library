@@ -14,7 +14,7 @@ public class BooksService {
         this.bookRepository = bookRepository;
     }
 
-    public Optional<Book> getBook(Long id){
+    public Optional<Book> getBook(String id){
         Optional<Book> book = bookRepository.findById(id);
         return book;
 
@@ -24,7 +24,7 @@ public class BooksService {
         return bookRepository.findAll();
     }
 
-    public boolean deleteBook(Long id){
+    public boolean deleteBook(String id){
 
         boolean isPresent = false;
 
@@ -38,7 +38,7 @@ public class BooksService {
         return isPresent;
     }
 
-    public Optional<Book> updateBook(Long id, Book newBook){
+    public Optional<Book> updateBook(String id, Book newBook){
         return bookRepository.findById(id).map(book -> {return book.updateBook(newBook);});
     }
 

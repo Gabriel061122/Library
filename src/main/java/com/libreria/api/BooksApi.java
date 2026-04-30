@@ -32,7 +32,7 @@ public class BooksApi {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Book> getBook(@PathVariable Long id) {
+    public ResponseEntity<Book> getBook(@PathVariable String id) {
         return booksService.getBook(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -45,14 +45,14 @@ public class BooksApi {
     }
 
     @PutMapping("{/id}")
-    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
+    public ResponseEntity<Book> updateBook(@PathVariable String id, @RequestBody Book book) {
         return booksService.updateBook(id, book)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteBook(@PathVariable String id) {
         boolean deleted = booksService.deleteBook(id);
         if (deleted) {
             return ResponseEntity.noContent().build();

@@ -26,3 +26,9 @@
 	- a user does not have enough money
 	- there is no stock of the book
 
+#### Card Information
+- Is an information container
+- Must validate it's internal information coherency.
+
+
+

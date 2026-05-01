@@ -113,7 +113,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "fc3b4f3b373a0937",
@@ -220,6 +221,12 @@
   },
   "active": "78d1f3a60c639dec",
   "lastOpenFiles": [
+    "target/classes/com/libreria/model/book/BorrowingCopy.class",
+    "target/classes/com/libreria/model/book/Avaliavility.class",
+    "src/main/java/com/libreria/model/book/Avaliavility.java",
+    "src/main/java/com/libreria/model/book/BorrowingCopy.java",
+    "target/classes/com/libreria/model/user/UserAction.class",
+    "src/main/java/com/libreria/model/user/UserAction.java",
     "developmentDiary/Domain Objects description.md",
     "developmentDiary/Rules.md",
     "developmentDiary/Domain.md",
@@ -229,11 +236,6 @@
     "src/main/java/com/libreria/service/UsersService.java",
     "src/main/java/com/libreria/api/UsersApi.java",
     "target/classes/com/libreria/api/Api.class",
-    "target/classes/com/libreria/service/LibraryService.class",
-    "src/main/java/com/libreria/service/LibraryService.java",
-    "src/main/java/com/libreria/api/Api.java",
-    "target/classes/com/libreria/service/LibraryServive.class",
-    "src/main/java/com/libreria/service/LibraryServive.java",
     "HELP.md"
   ]
 }

@@ -5,15 +5,19 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import java.util.Objects;
+import java.time.LocalDate;
 import java.util.Date;
 import com.libreria.model.user.User;
 import com.libreria.model.book.Book;
+import com.libreria.model.book.BorrowingCopy;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.JoinColumn;
 
@@ -21,7 +25,7 @@ import jakarta.persistence.JoinColumn;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
+@AllArgsConstructor
 public class Borrowing {
 
     @Id
@@ -33,21 +37,13 @@ public class Borrowing {
     @JsonIgnore
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "book_id")
-    @JsonIgnore
-    private Book book;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "copy_id")
+    private BorrowingCopy copy;
 
 
-    private Date borrowingDate;
-    private Date returnDate;
-
-    public Borrowing(User user, Book book, Date borrowingDate, Date returnDate) {
-        this.user = user;
-        this.book = book;
-        this.borrowingDate = borrowingDate;
-        this.returnDate = returnDate;
-    }
+    private LocalDate borrowingDate;
+    private LocalDate returnDate; 
 
     @Override
     public boolean equals(Object o) {

@@ -1,11 +1,21 @@
 package com.libreria.model.book;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
 import java.util.Objects;
+
+import org.springframework.web.bind.annotation.Mapping;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
@@ -18,6 +28,11 @@ public class Book {
     private String author;
     private int price;
     private int stock;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ToString.Exclude
+    private List<BorrowingCopy> copies;
 
     public Book(
             String title,

@@ -35,3 +35,9 @@ Buy
 - productList
 - user
 
+CardInformation
+- cardNumber
+- PIN
+- CVV
+- overdue date
+

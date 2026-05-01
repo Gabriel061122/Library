@@ -1,10 +1,8 @@
 package com.libreria.model.user;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import java.util.Objects;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -23,7 +21,7 @@ import com.libreria.model.exchange.Borrowing;
 @Setter
 @NoArgsConstructor
 @IdClass(UserKey.class)
-public class User {
+public class User implements UserAction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -53,6 +51,8 @@ public class User {
                inverseJoinColumns = @JoinColumn(name = "user_type_id")
                )
     private List<UserType> userTypes;
+
+    private Borrowing reservation;
 
     public User(
             String name,
@@ -96,6 +96,23 @@ public class User {
                 '}';
     }
 
+
+    public User updateUser(User newUser) {
+        this.email = newUser.getEmail();
+        this.name = newUser.getName();
+        this.password = newUser.getPassword();
+        this.phone = newUser.getPhone();
+        this.address = newUser.getAddress();
+        this.city = newUser.getCity();
+        this.state = newUser.getState();
+        this.country = newUser.getCountry();
+        this.postalCode = newUser.getPostalCode();
+        return this;
+    }
+
+
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o)return true;
@@ -114,7 +131,7 @@ public class User {
         order.setUser(this);
     }
 
-    public void addBorrowing(Borrowing borrowing) {
+    public void Borrow(Borrowing borrowing) {
         borrowings.add(borrowing);
         borrowing.setUser(this);
     }
@@ -124,9 +141,13 @@ public class User {
         order.setUser(null);
     }
 
-    public void removeBorrowing(Borrowing borrowing) {
+    public void finishBorrowing(Borrowing borrowing) {
         borrowings.remove(borrowing);
         borrowing.setUser(null);
+    }
+
+    public void reserve(Borrowing reserve){
+        this.setReservation(reserve);
     }
 
     public void addUserType(UserType userType) {
@@ -138,4 +159,5 @@ public class User {
         userTypes.remove(userType);
         userType.removeUser(this);
     }
+
 }

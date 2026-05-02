@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.libreria.model.book.Book;
+import com.libreria.model.book.BorrowingCopy;
 import com.libreria.service.BooksService;
 
 @RequestMapping("/books")
@@ -44,7 +45,7 @@ public class BooksApi {
         return ResponseEntity.ok(savedBook);
     }
 
-    @PutMapping("{/id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable String id, @RequestBody Book book) {
         return booksService.updateBook(id, book)
                 .map(ResponseEntity::ok)
@@ -59,6 +60,12 @@ public class BooksApi {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping("/{id}/borrowingCopies")
+    public ResponseEntity<BorrowingCopy> addBorrowingCopyOfABook(@PathVariable String id){
+        BorrowingCopy borrowingCopy = booksService.addBorrowingCopy(id);
+        return ResponseEntity.ok(borrowingCopy);
     }
 
 }

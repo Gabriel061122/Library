@@ -34,4 +34,8 @@ public class BorrowingCopy {
     
     private Avaliavility avlbl;
 
+    public BorrowingCopy(Book book, Avaliavility avlbl){
+        this.book = book;
+        this.avlbl = avlbl;
+    }
 }

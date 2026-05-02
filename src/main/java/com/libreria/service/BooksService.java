@@ -3,15 +3,23 @@ package com.libreria.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.libreria.model.book.Book;
-import com.libreria.model.repositories.BookRepository;
+import org.springframework.stereotype.Service;
 
+import com.libreria.model.book.Avaliavility;
+import com.libreria.model.book.Book;
+import com.libreria.model.book.BorrowingCopy;
+import com.libreria.model.repositories.BookRepository;
+import com.libreria.model.repositories.BorrowingCopyRepository;
+
+@Service
 public class BooksService {
     
     private BookRepository bookRepository;
+    private BorrowingCopyRepository borrowingCopyRepository;
 
-    public BooksService(BookRepository bookRepository){
+    public BooksService(BookRepository bookRepository, BorrowingCopyRepository borrowingCopyRepository){
         this.bookRepository = bookRepository;
+        this.borrowingCopyRepository = borrowingCopyRepository;
     }
 
     public Optional<Book> getBook(String id){
@@ -46,5 +54,17 @@ public class BooksService {
         bookRepository.save(book);
         return book;
     }
+
+    public BorrowingCopy addBorrowingCopy(String isbn){
+        Optional<Book> book = bookRepository.findById(isbn);
+        if (book.isPresent()){
+            BorrowingCopy newBorrowingCopy = new BorrowingCopy(book.get(), Avaliavility.AVALIABLE);
+            borrowingCopyRepository.save(newBorrowingCopy);
+            return newBorrowingCopy;
+        }
+        throw new RuntimeException("Libro no encontrado");
+    }
+
+
 
 }

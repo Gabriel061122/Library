@@ -1,19 +1,23 @@
 package com.libreria.model.user;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.HashSet;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
 @Table(name = "user_type")
 @Getter
 @Setter
-@NoArgsConstructor
+@AllArgsConstructor
 
 public class UserType {
 
@@ -26,7 +30,7 @@ public class UserType {
 
     @ManyToMany(mappedBy = "userTypes", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<User> users;
+    private Set<User> users = new HashSet<>();
 
     public UserType(String type) {
         this.type = type;

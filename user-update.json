@@ -1,0 +1,11 @@
+{
+  "email": "john.doe@example.com",
+  "name": "John Doe Updated",
+  "password": "newPassword456",
+  "phone": "+1-555-987-6543",
+  "address": "456 Oak Avenue",
+  "city": "Los Angeles",
+  "state": "CA",
+  "country": "USA",
+  "postalCode": "90001"
+}

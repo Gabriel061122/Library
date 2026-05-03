@@ -65,6 +65,16 @@ public class BooksService {
         throw new RuntimeException("Libro no encontrado");
     }
 
+    public boolean deleteBorrowingCopy(){
 
+        List<BorrowingCopy> list = borrowingCopyRepository.findAll();
+
+        if (list.isEmpty()) {
+            return false;
+        } 
+
+        borrowingCopyRepository.deleteById(list.getLast().getId());
+        return true;
+    }
 
 }

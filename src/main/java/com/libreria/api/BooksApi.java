@@ -68,4 +68,16 @@ public class BooksApi {
         return ResponseEntity.ok(borrowingCopy);
     }
 
+    @DeleteMapping("/{id}/borrowingCopies")
+    public ResponseEntity<Boolean> deleteBorrowingCopyOfABokk(@PathVariable String id){
+
+        boolean exists = booksService.deleteBorrowingCopy();
+
+        if (exists) {
+            return ResponseEntity.ok(exists);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
 }

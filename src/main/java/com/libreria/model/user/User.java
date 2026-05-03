@@ -1,9 +1,11 @@
 package com.libreria.model.user;
 
 import java.util.Objects;
+import java.util.Set;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,13 +22,10 @@ import com.libreria.model.exchange.Borrowing;
 @Getter
 @Setter
 @NoArgsConstructor
-@IdClass(UserKey.class)
-public class User implements UserAction {
+public class User /*implements UserAction */{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
     private Long id;
-    @Id
     private String email;
     private String name;
     private String password;
@@ -39,20 +38,25 @@ public class User implements UserAction {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Order> orders;
+    private List<Order> orders = new ArrayList<>();
 
-    @JsonIgnore
+    
     @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-    private List<Borrowing> borrowings;
+    @JsonIgnore
+    private List<Borrowing> borrowings = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name= "user_user_types",
-               joinColumns = @JoinColumn(name = "user_id"),
+               joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id"),
+                              @JoinColumn(name = "user_email", referencedColumnName = "email")
+            },
                inverseJoinColumns = @JoinColumn(name = "user_type_id")
                )
-    private List<UserType> userTypes;
+    private Set<UserType> userTypes = new HashSet<>();
 
-    private Borrowing reservation;
+    //@OneToOne(cascade = CascadeType.ALL)
+    //@JsonIgnore
+    //private Borrowing reservation;
 
     public User(
             String name,
@@ -75,10 +79,6 @@ public class User implements UserAction {
         this.state = state;
         this.country = country;
         this.postalCode = postalCode;
-
-        this.orders = new ArrayList<>();
-        this.borrowings = new ArrayList<>();
-        this.userTypes = new ArrayList<>();
     }
 
     @Override
@@ -145,10 +145,10 @@ public class User implements UserAction {
         borrowings.remove(borrowing);
         borrowing.setUser(null);
     }
-
-    public void reserve(Borrowing reserve){
-        this.setReservation(reserve);
-    }
+    // Hay que crear una nueva clase llamada Reservation
+    //public void reserve(Borrowing reserve){
+    //    this.setReservation(reserve);
+    //}
 
     public void addUserType(UserType userType) {
         userTypes.add(userType);

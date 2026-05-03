@@ -13,11 +13,13 @@ import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -27,11 +29,15 @@ public class BorrowingCopy {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "book_id")
     @ToString.Exclude
     private Book book;
     
     private Avaliavility avlbl;
 
+    public BorrowingCopy(Book book, Avaliavility avlbl){
+        this.book = book;
+        this.avlbl = avlbl;
+    }
 }

@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
@@ -31,22 +32,26 @@ public class Order {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumns({
+        @JoinColumn(name = "user_id", referencedColumnName = "id"),
+        @JoinColumn(name = "user_email", referencedColumnName = "email")
+    })
     @JsonIgnore
     private User user;
 
     private Date orderDate;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private List<Buy> buys = new ArrayList<>();
+    //Antes de arreglar todo este desmadre, primero vamos a hacer que la app funcione
+    //@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //@JoinColumn(name = "order_id")
+    //private List<Buy> buys = new ArrayList<>();
 
     private OrderState state;
 
     public Order(User user, Date orderDate, List<Buy> buys) {
         this.user = user;
         this.orderDate = orderDate;
-        this.buys = (buys == null) ? new ArrayList<>() : buys;
+        // this.buys = (buys == null) ? new ArrayList<>() : buys;
         this.state = OrderState.PENDING;
     }
 
@@ -64,10 +69,10 @@ public class Order {
         return Objects.hash(id);
     }
 
-    public void addBuy(Buy newBuy){
-        if (this.state != OrderState.PENDING){
-            
-        }
-        this.buys.add(newBuy);
-    }
+    //public void addBuy(Buy newBuy){
+    //    if (this.state != OrderState.PENDING){
+    //        
+    //    }
+    //    this.buys.add(newBuy);
+    //}
 }

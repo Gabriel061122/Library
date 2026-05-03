@@ -20,6 +20,7 @@ import com.libreria.model.book.Book;
 import com.libreria.model.book.BorrowingCopy;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
 
 
 @Entity
@@ -33,7 +34,10 @@ public class Borrowing {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumns({
+        @JoinColumn(name = "user_id", referencedColumnName = "id"),
+        @JoinColumn(name = "user_email", referencedColumnName = "email")
+    })
     @JsonIgnore
     private User user;
 

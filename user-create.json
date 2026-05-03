@@ -1,0 +1,11 @@
+{
+  "email": "john.doe@example.com",
+  "name": "John Doe",
+  "password": "securePassword123",
+  "phone": "+1-555-123-4567",
+  "address": "123 Main Street",
+  "city": "New York",
+  "state": "NY",
+  "country": "USA",
+  "postalCode": "10001"
+}

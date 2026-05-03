@@ -1,0 +1,38 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2">
+  <diagram name="Página-1" id="8YbE3XJi83jLE_iA9_ia">
+    <mxGraphModel dx="2066" dy="1272" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Vxjwkh5xkSr4EUgLIm9o-7" edge="1" parent="1" source="Vxjwkh5xkSr4EUgLIm9o-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.274;entryDx=0;entryDy=0;entryPerimeter=0;" target="Vxjwkh5xkSr4EUgLIm9o-9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="530" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Vxjwkh5xkSr4EUgLIm9o-2" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&lt;b&gt;UserCapabilities&lt;/b&gt;&lt;/i&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ updateInfo(User): User&lt;br&gt;+ addBuy(Buy): none&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ borrow(Borrow): none&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ finishBorrow(Borrow/id): none&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ reserve(Borrow): none&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ endReserve(): none&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ grantPermissions(): none&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" vertex="1">
+          <mxGeometry height="160" width="190" x="60" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Vxjwkh5xkSr4EUgLIm9o-8" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="User" vertex="1">
+          <mxGeometry height="268" width="270" x="460" y="80" as="geometry">
+            <mxRectangle height="30" width="70" x="520" y="320" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Vxjwkh5xkSr4EUgLIm9o-9" parent="Vxjwkh5xkSr4EUgLIm9o-8" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;name:&lt;/span&gt;&amp;nbsp;String&lt;div&gt;&lt;p&gt;id: Long&lt;/p&gt;&lt;p&gt;email: String&lt;/p&gt;&lt;p&gt;phone: String&lt;/p&gt;&lt;p&gt;&lt;br&gt;borrowingList: List&amp;lt;Borrowing&amp;gt;&lt;br&gt;&lt;br&gt;buyList: List&amp;lt;Buy&amp;gt;&lt;br&gt;&lt;br&gt;cardInformation: CardInformation&lt;/p&gt;&lt;p&gt;preferences: Preferences&lt;br&gt;&lt;br&gt;type: UserType&lt;br&gt;&lt;br&gt;bookReservation: Borrow&lt;/p&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="234" width="270" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Vxjwkh5xkSr4EUgLIm9o-10" parent="Vxjwkh5xkSr4EUgLIm9o-8" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="270" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="Vxjwkh5xkSr4EUgLIm9o-14" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Borrowing" vertex="1">
+          <mxGeometry height="60" width="160" x="200" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="Vxjwkh5xkSr4EUgLIm9o-15" parent="Vxjwkh5xkSr4EUgLIm9o-14" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+&amp;nbsp;" vertex="1">
+          <mxGeometry height="26" width="160" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="Vxjwkh5xkSr4EUgLIm9o-16" parent="Vxjwkh5xkSr4EUgLIm9o-14" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="160" y="52" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

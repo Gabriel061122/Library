@@ -11,6 +11,8 @@ import com.libreria.model.book.BorrowingCopy;
 import com.libreria.model.repositories.BookRepository;
 import com.libreria.model.repositories.BorrowingCopyRepository;
 
+import com.libreria.model.book.Genre;
+
 @Service
 public class BooksService {
     
@@ -73,8 +75,12 @@ public class BooksService {
             return false;
         } 
 
-        borrowingCopyRepository.deleteById(list.getLast().getId());
+        borrowingCopyRepository.deleteById(list.getLast().getId( ));
         return true;
+    }
+
+    public List<Book> getBooksFilter(String title, Genre genre, String author){
+        return bookRepository.findByTitleIgnoreCaseAndGenreAndAuthor(title, genre, author);
     }
 
 }

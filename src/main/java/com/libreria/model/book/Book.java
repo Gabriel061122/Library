@@ -31,25 +31,12 @@ public class Book {
     private String author;
     private int price;
     private int stock;
+    private Genre genre;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     @JsonIgnore
     @ToString.Exclude
     private List<BorrowingCopy> copies;
-
-    public Book(
-            String title,
-            String author,
-            String isbn,
-            int price,
-            int stock
-    ) {
-        this.title = title;
-        this.author = author;
-        this.isbn = isbn;
-        this.price = price;
-        this.stock = stock;
-    }
 
     @Override
     public String toString() {

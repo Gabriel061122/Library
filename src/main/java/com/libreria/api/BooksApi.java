@@ -4,17 +4,11 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.libreria.model.book.Book;
 import com.libreria.model.book.BorrowingCopy;
+import com.libreria.model.book.Genre;
 import com.libreria.service.BooksService;
 
 @RequestMapping("/books")
@@ -27,9 +21,12 @@ public class BooksApi {
         this.booksService = booksService;
     }
 
+
+    // Esto hay que controlar mejor las listas vacías
     @GetMapping()
-    public List<Book> getBooks(){
-        return booksService.getBooks();
+    public ResponseEntity<List<Book>> getBooks(){
+        List<Book> result = booksService.getBooks();
+        return result.isEmpty() ?  ResponseEntity.notFound().build() : ResponseEntity.ok(result);
     }
 
     @GetMapping("/{id}")
@@ -78,6 +75,14 @@ public class BooksApi {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<Book>> findWithFilter (@RequestParam(required = false) String title,
+		    				      @RequestParam(required = false) Genre genre,
+						      @RequestParam(required = false) String author){
+        List<Book> result = booksService.getBooksFilter(title, genre, author);
+        return result.isEmpty() ? ResponseEntity.ok(result) : ResponseEntity.notFound().build();
     }
 
 }

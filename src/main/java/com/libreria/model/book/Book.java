@@ -11,6 +11,7 @@ import java.util.Objects;
 import org.springframework.web.bind.annotation.Mapping;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.libreria.model.exchange.Buy;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -32,6 +33,9 @@ public class Book {
     private int price;
     private int stock;
     private Genre genre;
+
+    @OneToMany(mappedBy = "book")
+    List<Buy> buyList;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     @JsonIgnore

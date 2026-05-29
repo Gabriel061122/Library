@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +24,7 @@ import com.libreria.model.exchange.Borrowing;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class User /*implements UserAction */{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -126,38 +129,5 @@ public class User /*implements UserAction */{
         return Objects.hash(id);
     }
 
-    public void addOrder(Order order) {
-        orders.add(order);
-        order.setUser(this);
-    }
-
-    public void Borrow(Borrowing borrowing) {
-        borrowings.add(borrowing);
-        borrowing.setUser(this);
-    }
-
-    public void removeOrder(Order order) {
-        orders.remove(order);
-        order.setUser(null);
-    }
-
-    public void finishBorrowing(Borrowing borrowing) {
-        borrowings.remove(borrowing);
-        borrowing.setUser(null);
-    }
-    // Hay que crear una nueva clase llamada Reservation
-    //public void reserve(Borrowing reserve){
-    //    this.setReservation(reserve);
-    //}
-
-    public void addUserType(UserType userType) {
-        userTypes.add(userType);
-        userType.addUser(this);
-    }
-
-    public void removeUserType(UserType userType) {
-        userTypes.remove(userType);
-        userType.removeUser(this);
-    }
 
 }

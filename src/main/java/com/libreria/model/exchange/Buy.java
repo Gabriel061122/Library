@@ -2,6 +2,10 @@ package com.libreria.model.exchange;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -9,28 +13,20 @@ import java.util.Objects;
 import com.libreria.model.user.User;
 import com.libreria.model.book.Book;
 
-//@Entity
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Buy {
     @Id
     private Long id;
-    //private User user;
-    //private Book book;
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
     private int quantity;
     private int price;
     private int discount;
-
-
-    public Buy(Long id, /*User user, Book book,*/ int quantity, int price, int discount) {
-        this.id = id;
-        //this.user = user;
-        //this.book = book;
-        this.quantity = quantity;
-        this.price = price;
-        this.discount = discount;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -58,13 +54,4 @@ public class Buy {
         return price * quantity;
     }
 
-    public Buy updateBuy(Buy newBuy) {
-        this.id = newBuy.id;
-        //this.user = newBuy.user;
-        //this.book = newBuy.book;
-        this.quantity = newBuy.quantity;
-        this.price = newBuy.price;
-        this.discount = newBuy.discount;
-        return this;
-    }
 }

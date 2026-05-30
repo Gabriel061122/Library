@@ -67,9 +67,9 @@ public class BooksService {
         throw new RuntimeException("Libro no encontrado");
     }
 
-    public boolean deleteBorrowingCopy(){
+    public boolean deleteBorrowingCopy(String isbn){
 
-        List<BorrowingCopy> list = borrowingCopyRepository.findAll();
+        List<BorrowingCopy> list = borrowingCopyRepository.findAllByBook();
 
         if (list.isEmpty()) {
             return false;
@@ -80,7 +80,7 @@ public class BooksService {
     }
 
     public List<Book> getBooksFilter(String title, Genre genre, String author){
-        return bookRepository.findByTitleIgnoreCaseAndGenreAndAuthor(title, genre, author);
+        return bookRepository.findAllByTitleIgnoreCaseAndGenreAndAuthor(title, genre, author);
     }
 
 }

@@ -7,6 +7,6 @@ import com.libreria.model.book.*;
 
 public interface BookRepository extends JpaRepository<Book, String>{
     
-	public List<Book> findByTitleIgnoreCaseAndGenreAndAuthor(String title, Genre genre, String author);
+	public List<Book> findAllByTitleIgnoreCaseAndGenreAndAuthor(String title, Genre genre, String author);
 
 }

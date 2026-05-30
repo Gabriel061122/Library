@@ -1,6 +1,7 @@
 package com.libreria.model.exchange;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.libreria.exceptions.InvalidOrderStateModificationException;
 import com.libreria.model.exchange.OrderState.OrderState;
 import com.libreria.model.user.User;
 import jakarta.persistence.CascadeType;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +28,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Order {
 
     @Id
@@ -32,28 +36,17 @@ public class Order {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumns({
-        @JoinColumn(name = "user_id", referencedColumnName = "id"),
-        @JoinColumn(name = "user_email", referencedColumnName = "email")
-    })
+    @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
 
     private Date orderDate;
 
-    //Antes de arreglar todo este desmadre, primero vamos a hacer que la app funcione
-    //@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    //@JoinColumn(name = "order_id")
-    //private List<Buy> buys = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private List<Buy> buys;
 
     private OrderState state;
-
-    public Order(User user, Date orderDate, List<Buy> buys) {
-        this.user = user;
-        this.orderDate = orderDate;
-        // this.buys = (buys == null) ? new ArrayList<>() : buys;
-        this.state = OrderState.PENDING;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -70,10 +63,7 @@ public class Order {
     }
 
 
-    //public void addBuy(Buy newBuy){
-    //    if (this.state != OrderState.PENDING){
-    //        
-    //    }
-    //    this.buys.add(newBuy);
-    //}
+    public boolean isPending(){
+	return this.state == OrderState.PENDING;
+    }
 }

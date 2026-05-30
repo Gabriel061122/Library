@@ -21,12 +21,10 @@ public class BooksApi {
         this.booksService = booksService;
     }
 
-
-    // Esto hay que controlar mejor las listas vacías
     @GetMapping()
     public ResponseEntity<List<Book>> getBooks(){
         List<Book> result = booksService.getBooks();
-        return result.isEmpty() ?  ResponseEntity.notFound().build() : ResponseEntity.ok(result);
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{id}")
@@ -68,7 +66,7 @@ public class BooksApi {
     @DeleteMapping("/{id}/borrowingCopies")
     public ResponseEntity<Boolean> deleteBorrowingCopyOfABokk(@PathVariable String id){
 
-        boolean exists = booksService.deleteBorrowingCopy();
+        boolean exists = booksService.deleteBorrowingCopy(id);
 
         if (exists) {
             return ResponseEntity.ok(exists);
@@ -82,7 +80,7 @@ public class BooksApi {
 		    				      @RequestParam(required = false) Genre genre,
 						      @RequestParam(required = false) String author){
         List<Book> result = booksService.getBooksFilter(title, genre, author);
-        return result.isEmpty() ? ResponseEntity.ok(result) : ResponseEntity.notFound().build();
+        return  ResponseEntity.ok(result);
     }
 
 }

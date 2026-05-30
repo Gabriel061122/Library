@@ -3,6 +3,7 @@ package com.libreria.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.libreria.model.book.Avaliavility;
@@ -10,7 +11,7 @@ import com.libreria.model.book.Book;
 import com.libreria.model.book.BorrowingCopy;
 import com.libreria.model.repositories.BookRepository;
 import com.libreria.model.repositories.BorrowingCopyRepository;
-
+import com.libreria.model.repositories.specification.BookSpecifications;
 import com.libreria.model.book.Genre;
 
 @Service
@@ -80,7 +81,10 @@ public class BooksService {
     }
 
     public List<Book> getBooksFilter(String title, Genre genre, String author){
-        return bookRepository.findAllByTitleIgnoreCaseAndGenreAndAuthor(title, genre, author);
+	    Specification<Book> spec = Specification.where(BookSpecifications.hasTitle(title))
+						    .and(BookSpecifications.hasGenre(genre))
+						    .and(BookSpecifications.hasAuthor(author));
+	    return bookRepository.findAll(spec);
     }
 
 }

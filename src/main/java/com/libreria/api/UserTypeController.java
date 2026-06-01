@@ -1,7 +1,7 @@
 package com.libreria.api;
 
-import com.libreria.model.repositories.UserTypeRepository;
 import com.libreria.model.user.UserType;
+import com.libreria.service.UserTypeService;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,45 +17,41 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserTypeController {
 
-    private final UserTypeRepository userTypeRepository;
+    private final UserTypeService userTypeService;
 
-    public UserTypeController(UserTypeRepository userTypeRepository) {
-        this.userTypeRepository = userTypeRepository;
+    public UserTypeController(UserTypeService userTypeService) {
+        this.userTypeService = userTypeService;
     }
 
     @GetMapping
     public ResponseEntity<List<UserType>> getUserTypes() {
-        return ResponseEntity.ok(userTypeRepository.findAll());
+        return ResponseEntity.ok(userTypeService.getUserTypes());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserType> getUserType(@PathVariable Long id) {
-        return userTypeRepository.findById(id)
+        return userTypeService.getUserType(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public ResponseEntity<UserType> addUserType(@RequestBody UserType userType) {
-        return ResponseEntity.ok(userTypeRepository.save(userType));
+        return ResponseEntity.ok(userTypeService.addUserType(userType));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<UserType> updateUserType(@PathVariable Long id, @RequestBody UserType userType) {
-        return userTypeRepository.findById(id)
-                .map(existing -> {
-                    userType.setId(id);
-                    return ResponseEntity.ok(userTypeRepository.save(userType));
-                })
+        return userTypeService.updateUserType(id, userType)
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUserType(@PathVariable Long id) {
-        if (!userTypeRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
+        if (userTypeService.deleteUserType(id)) {
+            return ResponseEntity.noContent().build();
         }
-        userTypeRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.notFound().build();
     }
 }

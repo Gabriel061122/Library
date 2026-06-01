@@ -7,17 +7,12 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UsersService {
+public class UserService {
 
     private final UserRepository userRepository;
 
-    public UsersService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-    }
-
-    public User addUser(User user) {
-        userRepository.save(user);
-        return user;
     }
 
     public List<User> listUsers() {
@@ -26,6 +21,10 @@ public class UsersService {
 
     public Optional<User> getUser(Long id) {
         return userRepository.findById(id);
+    }
+
+    public User addUser(User user) {
+        return userRepository.save(user);
     }
 
     public Optional<User> updateUser(Long id, User incoming) {

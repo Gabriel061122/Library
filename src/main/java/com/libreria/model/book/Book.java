@@ -28,7 +28,7 @@ public class Book {
     private String author;
     private int price;
     private int stock;
-    private Genre genre;
+
 
     @OneToMany(mappedBy = "book")
     List<Buy> buyList;
@@ -44,7 +44,7 @@ public class Book {
             joinColumns = @JoinColumn(name ="isbn"),
             inverseJoinColumns = @JoinColumn(name ="genre_id" )
     )
-    private Set<Genreo> genreo = new HashSet<>();
+    private Set<Genre> genreo = new HashSet<>();
 
     @Override
     public String toString() {
@@ -77,7 +77,6 @@ public class Book {
         this.price = newBook.getPrice();
         this.stock = newBook.getStock();
         this.title = newBook.getTitle();
-        this.genre = newBook.getGenre();
         return this;
     }
 

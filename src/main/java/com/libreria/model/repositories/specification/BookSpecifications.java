@@ -2,9 +2,12 @@ package com.libreria.model.repositories.specification;
 
 import com.libreria.model.book.Book;
 
+import com.libreria.model.book.Genre;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
 import org.springframework.data.jpa.domain.Specification;
 
-import com.libreria.model.book.Genre;
+import java.util.List;
 
 public class BookSpecifications {
 
@@ -19,9 +22,15 @@ public class BookSpecifications {
 		};
 	}
 
-	public static Specification<Book> hasGenre (Genre genre){
+	public static Specification<Book> hasGenre (List<Long> genres){
 		return (root, query, cb) -> {
-			return genre == null ? null : cb.equal(root.get("genre"), genre);
+			if (genres == null || genres.isEmpty()) {
+				return cb.conjunction();}
+			query.distinct(true);
+
+			Join<Book, Genre> bookGenreJoin = root.join("Genero", JoinType.INNER);
+
+			return bookGenreJoin.get("id").in(genres);
 		};
-	}
+	};
 }

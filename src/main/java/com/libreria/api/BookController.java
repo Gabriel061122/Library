@@ -60,7 +60,7 @@ public class BookController {
     @GetMapping("/filter")
     public ResponseEntity<List<Book>> findWithFilter(
             @RequestParam(required = false) String title,
-            @RequestParam(required = false) Genre genre,
+            @RequestParam(required = false) List<Long> genre,
             @RequestParam(required = false) String author
     ) {
         return ResponseEntity.ok(booksService.getBooksFilter(title, genre, author));

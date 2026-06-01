@@ -50,7 +50,11 @@ public class BooksService {
     }
 
     public Optional<Book> updateBook(String id, Book newBook){
-        return bookRepository.findById(id).map(book -> {return book.updateBook(newBook);});
+        return bookRepository.findById(id).map(book -> {
+            newBook.setIsbn(id);
+            book.updateBook(newBook);
+            return bookRepository.save(book);
+        });
     }
 
     public Book addBook(Book book){
@@ -70,7 +74,7 @@ public class BooksService {
 
     public boolean deleteBorrowingCopy(String isbn){
 
-        List<BorrowingCopy> list = borrowingCopyRepository.findAllByBook();
+        List<BorrowingCopy> list = borrowingCopyRepository.findByBookIsbn(isbn);
 
         if (list.isEmpty()) {
             return false;

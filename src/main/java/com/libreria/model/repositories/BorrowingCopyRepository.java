@@ -8,6 +8,6 @@ import com.libreria.model.book.BorrowingCopy;
 
 public interface BorrowingCopyRepository extends JpaRepository<BorrowingCopy, Long>{
 
-	public List<BorrowingCopy> findAllByBook();
+	public List<BorrowingCopy> findByBookIsbn(String isbn);
 
 } 

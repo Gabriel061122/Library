@@ -15,24 +15,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/users")
 @RestController
-public class UsersApi {
-
+public class UserController {
 
     private final UsersService usersService;
 
-    public UsersApi(UsersService usersService) {
+    public UserController(UsersService usersService) {
         this.usersService = usersService;
     }
 
-    @PostMapping("/id")
-    public User addUser(User user) {
-        usersService.addUser(user);
-        return user;
-    }
-
     @GetMapping
-    public List<User> listUsers() {
-        return usersService.listUsers();
+    public ResponseEntity<List<User>> getUsers() {
+        return ResponseEntity.ok(usersService.listUsers());
     }
 
     @GetMapping("/{id}")
@@ -40,6 +33,11 @@ public class UsersApi {
         return usersService.getUser(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        return ResponseEntity.ok(usersService.addUser(user));
     }
 
     @PutMapping("/{id}")

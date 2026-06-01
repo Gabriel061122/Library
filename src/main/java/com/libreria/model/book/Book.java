@@ -1,12 +1,11 @@
 package com.libreria.model.book;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.libreria.model.exchange.Buy;
@@ -38,6 +37,14 @@ public class Book {
     @JsonIgnore
     @ToString.Exclude
     private List<BorrowingCopy> copies;
+
+    @ManyToMany
+    @JoinTable(
+            name ="book_genre",
+            joinColumns = @JoinColumn(name ="isbn"),
+            inverseJoinColumns = @JoinColumn(name ="genre_id" )
+    )
+    private Set<Genreo> genreo = new HashSet<>();
 
     @Override
     public String toString() {

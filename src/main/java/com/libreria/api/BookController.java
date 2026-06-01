@@ -4,6 +4,8 @@ import com.libreria.model.book.Book;
 import com.libreria.model.book.Genre;
 import com.libreria.service.BooksService;
 import java.util.List;
+
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,8 +63,14 @@ public class BookController {
     public ResponseEntity<List<Book>> findWithFilter(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) Genre genre,
-            @RequestParam(required = false) String author
+            @RequestParam(required = false) String author,
+            @RequestParam(defaultValue = "isbn") String sortBy,
+            @RequestParam(defaultValue = "asc") String order
     ) {
-        return ResponseEntity.ok(booksService.getBooksFilter(title, genre, author));
+
+        Sort.Direction dir = order.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+
+        Sort sort = Sort.by(dir, sortBy);
+        return ResponseEntity.ok(booksService.getBooksFilter(title, genre, author, sort));
     }
 }

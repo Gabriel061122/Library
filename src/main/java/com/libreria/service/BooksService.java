@@ -3,6 +3,7 @@ package com.libreria.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -84,11 +85,11 @@ public class BooksService {
         return true;
     }
 
-    public List<Book> getBooksFilter(String title, Genre genre, String author){
+    public List<Book> getBooksFilter(String title, Genre genre, String author, Sort sort){
 	    Specification<Book> spec = Specification.where(BookSpecifications.hasTitle(title))
 						    .and(BookSpecifications.hasGenre(genre))
 						    .and(BookSpecifications.hasAuthor(author));
-	    return bookRepository.findAll(spec);
+	    return bookRepository.findAll(spec, sort);
     }
 
 }

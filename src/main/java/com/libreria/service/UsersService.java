@@ -25,11 +25,11 @@ public class UsersService {
     }
 
     public Optional<User> getUser(Long id) {
-        return userRepository.findFirstById(id);
+        return userRepository.findById(id);
     }
 
     public Optional<User> updateUser(Long id, User incoming) {
-        return userRepository.findFirstById(id).map(existing -> {
+        return userRepository.findById(id).map(existing -> {
             existing.setName(incoming.getName());
             if (incoming.getPassword() != null) {
                 existing.setPassword(incoming.getPassword());
@@ -45,7 +45,7 @@ public class UsersService {
     }
 
     public boolean deleteUser(Long id) {
-        return userRepository.findFirstById(id)
+        return userRepository.findById(id)
                 .map(user -> {
                     userRepository.delete(user);
                     return true;

@@ -26,6 +26,7 @@ import jakarta.persistence.JoinColumns;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class Borrowing {
 
@@ -34,10 +35,7 @@ public class Borrowing {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumns({
-        @JoinColumn(name = "user_id", referencedColumnName = "id"),
-        @JoinColumn(name = "user_email", referencedColumnName = "email")
-    })
+    @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
 

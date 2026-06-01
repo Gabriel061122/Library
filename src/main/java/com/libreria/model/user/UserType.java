@@ -17,8 +17,8 @@ import java.util.Set;
 @Table(name = "user_type")
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
-
 public class UserType {
 
     @Id

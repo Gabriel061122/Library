@@ -21,6 +21,7 @@ import com.libreria.model.exchange.Borrowing;
 
 
 @Entity
+@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -50,9 +51,7 @@ public class User /*implements UserAction */{
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name= "user_user_types",
-               joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id"),
-                              @JoinColumn(name = "user_email", referencedColumnName = "email")
-            },
+               joinColumns = @JoinColumn(name = "user_id"),
                inverseJoinColumns = @JoinColumn(name = "user_type_id")
                )
     private Set<UserType> userTypes = new HashSet<>();

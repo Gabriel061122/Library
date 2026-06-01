@@ -8,13 +8,10 @@ import jakarta.persistence.OneToMany;
 import java.util.List;
 import java.util.Objects;
 
-import org.springframework.web.bind.annotation.Mapping;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.libreria.model.exchange.Buy;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -73,6 +70,7 @@ public class Book {
         this.price = newBook.getPrice();
         this.stock = newBook.getStock();
         this.title = newBook.getTitle();
+        this.genre = newBook.getGenre();
         return this;
     }
 

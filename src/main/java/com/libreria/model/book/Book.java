@@ -1,12 +1,11 @@
 package com.libreria.model.book;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.libreria.model.exchange.Buy;
@@ -29,7 +28,7 @@ public class Book {
     private String author;
     private int price;
     private int stock;
-    private Genre genre;
+
 
     @OneToMany(mappedBy = "book")
     List<Buy> buyList;
@@ -38,6 +37,14 @@ public class Book {
     @JsonIgnore
     @ToString.Exclude
     private List<BorrowingCopy> copies;
+
+    @ManyToMany
+    @JoinTable(
+            name ="book_genre",
+            joinColumns = @JoinColumn(name ="isbn"),
+            inverseJoinColumns = @JoinColumn(name ="genre_id" )
+    )
+    private Set<Genre> genreo = new HashSet<>();
 
     @Override
     public String toString() {
@@ -70,7 +77,6 @@ public class Book {
         this.price = newBook.getPrice();
         this.stock = newBook.getStock();
         this.title = newBook.getTitle();
-        this.genre = newBook.getGenre();
         return this;
     }
 

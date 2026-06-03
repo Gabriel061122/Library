@@ -46,7 +46,7 @@ public class Order {
     private Date orderDate;
 
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy="order")
-    @JoinColumn(name = "order_id")
+
     private List<Buy> buys;
 
     @Enumerated(EnumType.STRING)

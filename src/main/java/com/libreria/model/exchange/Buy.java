@@ -22,6 +22,7 @@ public class Buy {
     private Book book;
 
     @ManyToOne
+    @JoinColumn(name = "order_id")
     private Order order;
 
     private int quantity;

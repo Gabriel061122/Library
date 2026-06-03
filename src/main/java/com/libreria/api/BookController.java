@@ -2,8 +2,10 @@ package com.libreria.api;
 
 import com.libreria.model.book.Book;
 import com.libreria.model.book.Genre;
-import com.libreria.service.BooksService;
+import com.libreria.service.BookService;
 import java.util.List;
+
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,39 +21,39 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BookController {
 
-    private final BooksService booksService;
+    private final BookService bookService;
 
-    public BookController(BooksService booksService) {
-        this.booksService = booksService;
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
     }
 
     @GetMapping
     public ResponseEntity<List<Book>> getBooks() {
-        return ResponseEntity.ok(booksService.getBooks());
+        return ResponseEntity.ok(bookService.getBooks());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBook(@PathVariable String id) {
-        return booksService.getBook(id)
+        return bookService.getBook(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public ResponseEntity<Book> addBook(@RequestBody Book book) {
-        return ResponseEntity.ok(booksService.addBook(book));
+        return ResponseEntity.ok(bookService.addBook(book));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable String id, @RequestBody Book book) {
-        return booksService.updateBook(id, book)
+        return bookService.updateBook(id, book)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable String id) {
-        if (booksService.deleteBook(id)) {
+        if (bookService.deleteBook(id)) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
@@ -61,8 +63,14 @@ public class BookController {
     public ResponseEntity<List<Book>> findWithFilter(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) List<Long> genre,
-            @RequestParam(required = false) String author
+            @RequestParam(required = false) String author,
+            @RequestParam(defaultValue = "isbn") String sortBy,
+            @RequestParam(defaultValue = "asc") String order
     ) {
-        return ResponseEntity.ok(booksService.getBooksFilter(title, genre, author));
+
+        Sort.Direction dir = order.equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+
+        Sort sort = Sort.by(dir, sortBy);
+        return ResponseEntity.ok(bookService.getBooksFilter(title, genre, author, sort));
     }
 }

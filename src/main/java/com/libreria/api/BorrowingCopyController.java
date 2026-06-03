@@ -1,8 +1,7 @@
 package com.libreria.api;
 
 import com.libreria.model.book.BorrowingCopy;
-import com.libreria.model.repositories.BorrowingCopyRepository;
-import com.libreria.service.BooksService;
+import com.libreria.service.BorrowingCopyService;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,34 +17,34 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BorrowingCopyController {
 
-    private final BorrowingCopyRepository borrowingCopyRepository;
-    private final BooksService booksService;
+    private final BorrowingCopyService borrowingCopyService;
 
-    public BorrowingCopyController(BorrowingCopyRepository borrowingCopyRepository, BooksService booksService) {
-        this.borrowingCopyRepository = borrowingCopyRepository;
-        this.booksService = booksService;
+    public BorrowingCopyController(BorrowingCopyService borrowingCopyService) {
+        this.borrowingCopyService = borrowingCopyService;
     }
 
     @GetMapping
     public ResponseEntity<List<BorrowingCopy>> getBorrowingCopies() {
-        return ResponseEntity.ok(borrowingCopyRepository.findAll());
+        return ResponseEntity.ok(borrowingCopyService.getBorrowingCopies());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<BorrowingCopy> getBorrowingCopy(@PathVariable Long id) {
-        return borrowingCopyRepository.findById(id)
+        return borrowingCopyService.getBorrowingCopy(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public ResponseEntity<BorrowingCopy> addBorrowingCopy(@RequestBody BorrowingCopy borrowingCopy) {
-        return ResponseEntity.ok(borrowingCopyRepository.save(borrowingCopy));
+        return ResponseEntity.ok(borrowingCopyService.addBorrowingCopy(borrowingCopy));
     }
 
     @PostMapping("/books/{isbn}")
     public ResponseEntity<BorrowingCopy> addBorrowingCopyOfBook(@PathVariable String isbn) {
-        return ResponseEntity.ok(booksService.addBorrowingCopy(isbn));
+        return borrowingCopyService.addBorrowingCopyOfBook(isbn)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
@@ -53,26 +52,22 @@ public class BorrowingCopyController {
             @PathVariable Long id,
             @RequestBody BorrowingCopy borrowingCopy
     ) {
-        return borrowingCopyRepository.findById(id)
-                .map(existing -> {
-                    borrowingCopy.setId(id);
-                    return ResponseEntity.ok(borrowingCopyRepository.save(borrowingCopy));
-                })
+        return borrowingCopyService.updateBorrowingCopy(id, borrowingCopy)
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBorrowingCopy(@PathVariable Long id) {
-        if (!borrowingCopyRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
+        if (borrowingCopyService.deleteBorrowingCopy(id)) {
+            return ResponseEntity.noContent().build();
         }
-        borrowingCopyRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/books/{isbn}/last")
     public ResponseEntity<Void> deleteLastBorrowingCopyOfBook(@PathVariable String isbn) {
-        if (booksService.deleteBorrowingCopy(isbn)) {
+        if (borrowingCopyService.deleteLastBorrowingCopyOfBook(isbn)) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();

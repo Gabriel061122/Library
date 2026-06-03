@@ -1,7 +1,6 @@
 package com.libreria.service;
 
 import com.libreria.model.book.Book;
-import com.libreria.model.book.Genre;
 import com.libreria.model.repositories.BookRepository;
 import com.libreria.model.repositories.specification.BookSpecifications;
 import java.util.List;
@@ -48,7 +47,7 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public List<Book> getBooksFilter(String title, Genre genre, String author, Sort sort) {
+    public List<Book> getBooksFilter(String title, List<Long> genre, String author, Sort sort) {
         Specification<Book> spec = Specification.where(BookSpecifications.hasTitle(title))
                 .and(BookSpecifications.hasGenre(genre))
                 .and(BookSpecifications.hasAuthor(author));

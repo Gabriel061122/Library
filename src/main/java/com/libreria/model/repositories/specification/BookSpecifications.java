@@ -28,7 +28,7 @@ public class BookSpecifications {
 				return cb.conjunction();}
 			query.distinct(true);
 
-			Join<Book, Genre> bookGenreJoin = root.join("Genero", JoinType.INNER);
+			Join<Book, Genre> bookGenreJoin = root.join("genreo", JoinType.INNER);
 
 			return bookGenreJoin.get("id").in(genres);
 		};

@@ -5,6 +5,8 @@ import org.hibernate.annotations.IdGeneratorType;
 import jakarta.annotation.Generated;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,6 +36,7 @@ public class BorrowingCopy {
     @ToString.Exclude
     private Book book;
     
+    @Enumerated(EnumType.STRING)
     private Avaliavility avlbl;
 
     public BorrowingCopy(Book book, Avaliavility avlbl){

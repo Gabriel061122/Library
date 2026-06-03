@@ -1,10 +1,6 @@
 package com.libreria.model.exchange;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +20,10 @@ public class Buy {
     @ManyToOne
     @JoinColumn(name = "book_id")
     private Book book;
+
+    @ManyToOne
+    private Order order;
+
     private int quantity;
     private int price;
     private int discount;

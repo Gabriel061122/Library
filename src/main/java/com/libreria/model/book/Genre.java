@@ -22,7 +22,7 @@ public class Genre {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "genre")
+    @ManyToMany(mappedBy = "genreo")
     @ToString.Exclude
     private Set<Book> books = new HashSet<>();
 }

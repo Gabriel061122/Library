@@ -1,9 +1,12 @@
 package com.libreria.api;
 
 import com.libreria.model.exchange.Borrowing;
+import com.libreria.service.BorrowingCopyService;
 import com.libreria.service.BorrowingService;
+import com.libreria.service.UserService;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,9 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class BorrowingController {
 
     private final BorrowingService borrowingService;
+    private final UserService userService;
+    private final BorrowingCopyService borrowingCopyService;
 
-    public BorrowingController(BorrowingService borrowingService) {
+    public BorrowingController(BorrowingService borrowingService, UserService userService, BorrowingCopyService borrowingCopyService) {
         this.borrowingService = borrowingService;
+        this.userService = userService;
+        this.borrowingCopyService = borrowingCopyService;
     }
 
     @GetMapping
@@ -36,7 +43,12 @@ public class BorrowingController {
     }
 
     @PostMapping
-    public ResponseEntity<Borrowing> addBorrowing(@RequestBody Borrowing borrowing) {
+    public ResponseEntity<Borrowing> addBorrowing(@RequestBody Borrowing borrowing, Authentication auth) {
+        userService.getUserByEmail(auth.getName()).ifPresent(borrowing::setUser);
+        if (borrowing.getCopy() != null && borrowing.getCopy().getId() != null) {
+            borrowingCopyService.getBorrowingCopy(borrowing.getCopy().getId())
+                .ifPresent(borrowing::setCopy);
+        }
         return ResponseEntity.ok(borrowingService.addBorrowing(borrowing));
     }
 

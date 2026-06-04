@@ -3,6 +3,8 @@ package com.libreria.api;
 import com.libreria.model.book.BorrowingCopy;
 import com.libreria.service.BorrowingCopyService;
 import java.util.List;
+
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

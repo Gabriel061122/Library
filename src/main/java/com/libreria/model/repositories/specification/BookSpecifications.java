@@ -12,13 +12,13 @@ import java.util.List;
 public class BookSpecifications {
 
 	public static Specification<Book> hasTitle (String title){
-		return (root, query, cb) -> 
-			title == null ? null : cb.equal(root.get("title"), title);
+		return (root, query, cb) ->
+			(title == null || title.isEmpty()) ? null : cb.like(cb.lower(root.get("title")), "%" + title.toLowerCase() + "%");
 	}
 
 	public static Specification<Book> hasAuthor (String author){
 		return (root, query, cb) -> {
-			return author == null ? null : cb.equal(root.get("author"), author);
+			return (author == null || author.isEmpty()) ? null : cb.like(cb.lower(root.get("author")), "%" + author.toLowerCase() + "%");
 		};
 	}
 

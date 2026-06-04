@@ -10,7 +10,6 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.libreria.model.exchange.Buy;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +19,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Book {
     @Id
     private String isbn;
@@ -31,6 +29,7 @@ public class Book {
 
 
     @OneToMany(mappedBy = "book")
+    @JsonIgnore
     List<Buy> buyList;
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)

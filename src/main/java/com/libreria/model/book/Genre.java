@@ -1,5 +1,6 @@
 package com.libreria.model.book;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +24,7 @@ public class Genre {
     private String name;
 
     @ManyToMany(mappedBy = "genreo")
+    @JsonIgnore
     @ToString.Exclude
     private Set<Book> books = new HashSet<>();
 }

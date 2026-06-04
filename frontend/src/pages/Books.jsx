@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getBooks, filterBooks, getBorrowingCopies, createBorrowing, createOrder, createBuy } from '../api/api';
+import { filterBooks, getBorrowingCopies, createBorrowing, createOrder, createBuy } from '../api/api';
 import { useAuth } from '../context/AuthContext';
 
 export default function Books() {
@@ -19,10 +19,7 @@ export default function Books() {
   const fetchBooks = async () => {
     setLoading(true);
     try {
-      const hasFilters = filters.title || filters.author;
-      const res = hasFilters
-        ? await filterBooks(filters)
-        : await getBooks();
+      const res = await filterBooks(filters);
       setBooks(res.data);
     } catch {
       setMessage({ text: 'Failed to load books', type: 'error' });
@@ -144,7 +141,7 @@ export default function Books() {
 
       {loading ? (
         <div className="loading">Loading books...</div>
-      ) : books.length === 0 ? (
+      ) : !Array.isArray(books) || books.length === 0 ? (
         <div className="empty">No books found</div>
       ) : (
         <div className="books-grid">

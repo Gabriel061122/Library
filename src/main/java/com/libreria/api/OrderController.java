@@ -2,8 +2,10 @@ package com.libreria.api;
 
 import com.libreria.model.exchange.Order;
 import com.libreria.service.OrderService;
+import com.libreria.service.UserService;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,9 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
     private final OrderService orderService;
+    private final UserService userService;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, UserService userService) {
         this.orderService = orderService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -36,7 +40,8 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Order> addOrder(@RequestBody Order order) {
+    public ResponseEntity<Order> addOrder(@RequestBody Order order, Authentication auth) {
+        userService.getUserByEmail(auth.getName()).ifPresent(order::setUser);
         return ResponseEntity.ok(orderService.addOrder(order));
     }
 

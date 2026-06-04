@@ -265,7 +265,7 @@ export default function Admin() {
           </div>
 
           <div className="admin-list">
-            <h3>Existing Books ({books.length})</h3>
+            <h3>Existing Books ({Array.isArray(books) ? books.length : 0})</h3>
             <table>
               <thead>
                 <tr>
@@ -279,7 +279,7 @@ export default function Admin() {
                 </tr>
               </thead>
               <tbody>
-                {books.map((book) => (
+                {Array.isArray(books) && books.map((book) => (
                   <tr key={book.isbn}>
                     <td>{book.isbn}</td>
                     <td>{book.title}</td>

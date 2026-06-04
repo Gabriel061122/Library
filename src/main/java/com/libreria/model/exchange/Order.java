@@ -1,7 +1,6 @@
 package com.libreria.model.exchange;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.libreria.exceptions.InvalidOrderStateModificationException;
 import com.libreria.model.exchange.OrderState.OrderState;
 import com.libreria.model.user.User;
 import jakarta.persistence.CascadeType;
@@ -16,12 +15,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,14 +28,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
@@ -46,7 +42,7 @@ public class Order {
     private Date orderDate;
 
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy="order")
-
+    @JsonIgnore
     private List<Buy> buys;
 
     @Enumerated(EnumType.STRING)

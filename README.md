@@ -2,6 +2,10 @@
 
 Sistema de gestión bibliotecaria full-stack. Catálogo de libros, órdenes de compra, préstamos y administración de usuarios.
 
+## Integrantes:
+- Gabriel Francisco Ruíz Bolaños
+- Alonso Jesús Rodríguez Betancor
+
 ## Stack
 
 - **Backend:** Java 21 + Spring Boot 4.0.5 + Maven

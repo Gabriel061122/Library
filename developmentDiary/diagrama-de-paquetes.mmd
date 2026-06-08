@@ -1,0 +1,300 @@
+---
+title: Diagrama de Paquetes — Library Management System
+---
+classDiagram
+    direction TB
+
+    namespace Frontend {
+        class Pages {
+            +useAuth() Context
+            +fetchBooks() void
+            +handleFilter(e) void
+            +openBorrowModal(book) void
+            +handleBorrow() void
+            +handleOrder() void
+            +handleSubmit(e) void
+            +handleChange(e) void
+            +fetchData() void
+            +getBuysForOrder(orderId) void
+            +isOverdue(returnDate) boolean
+            +handleEditBook(book) void
+            +handleDeleteBook(isbn) void
+            +handleAddCopy() void
+            +handleDeleteLastCopy(isbn) void
+        }
+        class Components {
+            +useAuth() Context
+            +handleLogout() void
+        }
+        class Context {
+            +user User
+            +token String
+            +loading boolean
+            +login(email, password) void
+            +logout() void
+            +isAdmin() boolean
+        }
+        class Api {
+            +api AxiosInstance
+            +login(email, password) Promise
+            +getUsers() Promise
+            +getBooks() Promise
+            +filterBooks(params) Promise
+            +createBook(data) Promise
+            +updateBook(isbn, data) Promise
+            +deleteBook(isbn) Promise
+            +getOrders() Promise
+            +createOrder(data) Promise
+            +getBorrowings() Promise
+            +createBorrowing(data) Promise
+            +getBorrowingCopies() Promise
+            +createBorrowingCopyForBook(isbn) Promise
+            +deleteLastBorrowingCopy(isbn) Promise
+            +getUserTypes() Promise
+        }
+    }
+
+    namespace Controllers {
+        class CtrlAuth {
+            -jwtUtil JwtUtil
+            -userService UserService
+            +login(credentials) ResponseEntity
+            +register(user) ResponseEntity
+        }
+        class CtrlBook {
+            -bookService BookService
+            +getBooks() ResponseEntity~List~Book~~
+            +getBook(id) ResponseEntity~Book~
+            +addBook(book) ResponseEntity~Book~
+            +updateBook(id, book) ResponseEntity~Book~
+            +deleteBook(id) ResponseEntity~Void~
+            +findWithFilter(title, genre, author, sortBy, order) ResponseEntity~List~Book~~
+        }
+        class CtrlOrder {
+            -orderService OrderService
+            -userService UserService
+            +getOrders() ResponseEntity~List~Order~~
+            +getOrder(id) ResponseEntity~Order~
+            +addOrder(order, auth) ResponseEntity~Order~
+            +updateOrder(id, order) ResponseEntity~Order~
+            +deleteOrder(id) ResponseEntity~Void~
+        }
+        class CtrlUser {
+            -userService UserService
+            +getUsers() ResponseEntity~List~User~~
+            +getUser(id) ResponseEntity~User~
+            +addUser(user) ResponseEntity~User~
+            +updateUser(id, user) ResponseEntity~User~
+            +deleteUser(id) ResponseEntity~Void~
+        }
+        class CtrlBorrow {
+            -borrowingService BorrowingService
+            -userService UserService
+            -borrowingCopyService BorrowingCopyService
+            +getBorrowings() ResponseEntity~List~Borrowing~~
+            +getBorrowing(id) ResponseEntity~Borrowing~
+            +addBorrowing(borrowing, auth) ResponseEntity~Borrowing~
+            +updateBorrowing(id, borrowing) ResponseEntity~Borrowing~
+            +deleteBorrowing(id) ResponseEntity~Void~
+        }
+    }
+
+    namespace Services {
+        class SvcBook {
+            -bookRepository BookRepository
+            +getBooks() List~Book~
+            +getBook(id) Optional~Book~
+            +addBook(book) Book
+            +updateBook(id, newBook) Optional~Book~
+            +deleteBook(id) boolean
+            +getBooksFilter(title, genre, author, sort) List~Book~
+        }
+        class SvcOrder {
+            -orderRepository OrderRepository
+            +getOrders() List~Order~
+            +getOrder(id) Optional~Order~
+            +addOrder(order) Order
+            +updateOrder(id, order) Optional~Order~
+            +deleteOrder(id) boolean
+        }
+        class SvcUser {
+            -userRepository UserRepository
+            +listUsers() List~User~
+            +getUser(id) Optional~User~
+            +addUser(user) User
+            +updateUser(id, incoming) Optional~User~
+            +deleteUser(id) boolean
+            +getUserByEmail(email) Optional~User~
+        }
+        class SvcBorrow {
+            -borrowingRepository BorrowingRepository
+            +getBorrowings() List~Borrowing~
+            +getBorrowing(id) Optional~Borrowing~
+            +addBorrowing(borrowing) Borrowing
+            +updateBorrowing(id, borrowing) Optional~Borrowing~
+            +deleteBorrowing(id) boolean
+        }
+    }
+
+    namespace Model {
+        class Book {
+            -isbn String
+            -title String
+            -author String
+            -price int
+            -stock int
+            -buyList List~Buy~
+            -copies List~BorrowingCopy~
+            -genreo Set~Genre~
+            +updateBook(newBook) Book
+        }
+        class Genre {
+            -id Long
+            -name String
+            -books Set~Book~
+        }
+        class BorrowingCopy {
+            -id Long
+            -book Book
+            -avlbl Avaliavility
+        }
+        class Avaliavility {
+            <<enum>>
+            AVALIABLE
+            RESERVED
+            NOT_AVALIABLE
+        }
+        class User {
+            -id Long
+            -email String
+            -name String
+            -password String
+            -phone String
+            -address String
+            -city String
+            -state String
+            -country String
+            -postalCode String
+            -orders List~Order~
+            -borrowings List~Borrowing~
+            -userTypes Set~UserType~
+            +updateUser(newUser) User
+        }
+        class UserType {
+            -id Long
+            -type String
+            -users Set~User~
+            +addUser(user) void
+            +removeUser(user) void
+        }
+        class Order {
+            -id Long
+            -user User
+            -orderDate Date
+            -buys List~Buy~
+            -state OrderState
+            +isPending() boolean
+        }
+        class OrderState {
+            <<enum>>
+            PENDING
+            SENDED
+            IN_DISTIBUITION
+            DELIVERED
+        }
+        class Buy {
+            -id Long
+            -book Book
+            -order Order
+            -quantity int
+            -price int
+            -discount int
+            +getTotalPrice() int
+            +getTotalDiscount() int
+            +getTotalPriceWithoutDiscount() int
+        }
+        class Borrowing {
+            -id Long
+            -user User
+            -copy BorrowingCopy
+            -borrowingDate LocalDate
+            -returnDate LocalDate
+        }
+    }
+
+    namespace Repositories {
+        class RepoBook {
+            <<interface>>
+            +findAll(Specification) List~Book~
+            +findOne(Specification) Optional~Book~
+        }
+        class RepoUser {
+            <<interface>>
+            +findByEmail(email) Optional~User~
+        }
+        class RepoOrder {
+            <<interface>>
+        }
+        class RepoBorrow {
+            <<interface>>
+        }
+    }
+
+    namespace Security {
+        class JwtUtil {
+            -secret String
+            -expiration Long
+            +generateToken(username) String
+            +extractUserName(token) String
+            -getKey() SecretKey
+        }
+        class JwtFilter {
+            -jwtUtil JwtUtil
+            +doFilterInternal(request, response, chain) void
+        }
+        class SecConfig {
+            -filter JwtFilter
+            +filterChain(http) SecurityFilterChain
+        }
+    }
+
+    %% Frontend interno
+    Pages ..> Api : HTTP
+    Pages ..> Context : estado
+    Components ..> Context : estado
+
+    %% Frontend → Controladores (HTTP)
+    Api ..> CtrlAuth : POST /auth
+    Api ..> CtrlBook : CRUD /books
+    Api ..> CtrlOrder : CRUD /orders
+    Api ..> CtrlBorrow : CRUD /borrowings
+
+    %% Controladores → Servicios
+    CtrlAuth ..> SvcUser : delega
+    CtrlAuth ..> JwtUtil : emite token
+    CtrlBook ..> SvcBook : delega
+    CtrlOrder ..> SvcOrder : delega
+    CtrlBorrow ..> SvcBorrow : delega
+
+    %% Servicios → Repositorios
+    SvcBook ..> RepoBook : consulta
+    SvcUser ..> RepoUser : consulta
+    SvcOrder ..> RepoOrder : consulta
+    SvcBorrow ..> RepoBorrow : consulta
+
+    %% Servicios → Entidades
+    SvcBook ..> Book : manipula
+    SvcUser ..> User : manipula
+    SvcOrder ..> Order : manipula
+    SvcBorrow ..> Borrowing : manipula
+    SvcBorrow ..> Book : referencia
+
+    %% Repositorios → Entidades
+    RepoBook ..> Book : CRUD
+    RepoUser ..> User : CRUD
+    RepoOrder ..> Order : CRUD
+    RepoBorrow ..> Borrowing : CRUD
+
+    %% Seguridad
+    JwtFilter ..> JwtUtil : valida token
+    SecConfig ..> JwtFilter : registra

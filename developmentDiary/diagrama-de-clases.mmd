@@ -1,0 +1,111 @@
+classDiagram
+
+    %% ==================== ENUMS ====================
+
+    class Avaliavility {
+        <<enumeration>>
+        AVALIABLE
+        RESERVED
+        NOT_AVALIABLE
+    }
+
+    class OrderState {
+        <<enumeration>>
+        PENDING
+        SENDED
+        IN_DISTIBUITION
+        DELIVERED
+    }
+
+
+    %% ==================== ENTIDADES ====================
+
+    class Book {
+        -String isbn
+        -String title
+        -String author
+        -int price
+        -int stock
+        +updateBook(Book newBook) Book
+    }
+
+    class Genre {
+        -Long id
+        -String name
+    }
+
+    class BorrowingCopy {
+        -Long id
+        -Avaliavility avlbl
+    }
+
+    class User {
+        -Long id
+        -String email
+        -String name
+        -String password
+        -String phone
+        -String address
+        -String city
+        -String state
+        -String country
+        -String postalCode
+        +updateUser(User newUser) User
+    }
+
+    class UserType {
+        -Long id
+        -String type
+        +addUser(User user) void
+        +removeUser(User user) void
+    }
+
+    class Order {
+        -Long id
+        -Date orderDate
+        -OrderState state
+        +isPending() boolean
+    }
+
+    class Buy {
+        -Long id
+        -int quantity
+        -int price
+        -int discount
+        +getTotalPrice() int
+        +getTotalDiscount() int
+        +getTotalPriceWithoutDiscount() int
+    }
+
+    class Borrowing {
+        -Long id
+        -LocalDate borrowingDate
+        -LocalDate returnDate
+    }
+
+    %% ==================== RELACIONES ====================
+
+    %% Book relationships
+    Book "1" --> "0..*" BorrowingCopy : copies
+    Book "1" --> "0..*" Buy : buyList
+    Book "*" --> "*" Genre : genreo
+
+    %% BorrowingCopy relationships
+    BorrowingCopy --> Avaliavility : avlbl
+
+    %% User relationships
+    User "1" --> "0..*" Order : orders
+    User "1" --> "0..*" Borrowing : borrowings
+    User "*" --> "*" UserType : userTypes
+
+    %% Order relationships
+    Order "1" --> "0..*" Buy : buys
+    Order --> OrderState : state
+
+    %% Buy relationships
+    Buy "*" --> "1" Book : book
+    Buy "*" --> "1" Order : order
+
+    %% Borrowing relationships
+    Borrowing "0..1" --> "1" BorrowingCopy : copy
+    Borrowing "0..*" --> "1" User : user

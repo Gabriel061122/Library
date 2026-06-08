@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Technical-Architecture.md",
+                "file": "seq-borrowings.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Technical-Architecture"
+              "title": "seq-borrowings"
             }
           }
         ]
@@ -185,14 +185,23 @@
   },
   "active": "8866171580aa222a",
   "lastOpenFiles": [
+    "seq-buys.md",
+    "seq-orders.md",
+    "seq-user-types.md",
+    "seq-users.md",
     "Specs.md",
+    "diagramaPaquete.png",
+    "diagramaPaquetes.pdf",
+    "diagramaPaquetes.png",
+    "seq-auth.md",
+    "seq-borrowings.md",
+    "Technical-Architecture.md",
     "Security.md",
     "Rules.md",
     "Frontend-Structure.md",
     "Domain-Model.md",
     "Domain Objects description.md",
     "Domain.md",
-    "API-Reference.md",
-    "Technical-Architecture.md"
+    "API-Reference.md"
   ]
 }
